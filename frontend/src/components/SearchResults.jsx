@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import ProductCard from "./ProductCard"; // import the component
 
+const API = import.meta.env.VITE_API_URL;
+
 export default function SearchResults() {
   const [products, setProducts] = useState([]);
   const { search } = useLocation();
@@ -11,8 +13,8 @@ export default function SearchResults() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        let url = "http://localhost:5000/api/products";
-        if (query) url = `http://localhost:5000/api/products/search?q=${query}`;
+        let url = `${API}/products`;
+        if (query) url = `${API}/products/search?q=${query}`;
         const res = await axios.get(url);
         setProducts(res.data);
       } catch (err) {

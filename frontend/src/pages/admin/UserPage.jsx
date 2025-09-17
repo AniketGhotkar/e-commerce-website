@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import UserCard from "../../components/admindashboard/UserCard";
 
+const API = import.meta.env.VITE_API_URL;
+
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
 
@@ -12,7 +14,7 @@ export default function UsersPage() {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/users", {
+      const res = await axios.get(`${API}/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(res.data);   

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+const API = import.meta.env.VITE_API_URL;
+
 export default function ProductForm({ product, onClose, onSave }) {
   const [form, setForm] = useState({
     title: "",
@@ -36,7 +38,7 @@ export default function ProductForm({ product, onClose, onSave }) {
       if (product._id) {
         // Edit product
         const res = await axios.put(
-          `http://localhost:5000/api/products/${product._id}`,
+          `${API}/products/${product._id}`,
           form,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -44,7 +46,7 @@ export default function ProductForm({ product, onClose, onSave }) {
       } else {
         // Add product
         const res = await axios.post(
-          `http://localhost:5000/api/products`,
+          `${API}/products`,
           form,
           { headers: { Authorization: `Bearer ${token}` } }
         );

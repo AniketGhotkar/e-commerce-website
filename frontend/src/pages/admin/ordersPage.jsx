@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import OrderCard from "../../components/admindashboard/OrderCard";
 
+const API = import.meta.env.VITE_API_URL;
+
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
 
@@ -12,7 +14,7 @@ export default function OrdersPage() {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/orders", {
+      const res = await axios.get(`${API}/orders`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);

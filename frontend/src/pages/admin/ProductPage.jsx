@@ -3,6 +3,8 @@ import axios from "axios";
 import ProductCard from "../../components/ProductCard";
 import ProductForm from "../../components/ProductForm";
 
+const API = import.meta.env.VITE_API_URL;
+
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -14,7 +16,7 @@ export default function ProductsPage() {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/products", {
+      const res = await axios.get(`${API}/products`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(res.data);
@@ -27,7 +29,7 @@ export default function ProductsPage() {
     const token = localStorage.getItem("token");
     if (!window.confirm("Delete this product?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/products/${id}`, {
+      await axios.delete(`${API}/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(products.filter((p) => p._id !== id));
