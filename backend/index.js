@@ -26,13 +26,19 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // Enable CORS only for your frontend domain(s)
+import cors from "cors";
+
 app.use(
   cors({
-    origin: ['https://e-commerce-website-98wd.vercel.app'], // your frontend URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: [
+      "https://e-commerce-website-98wd.vercel.app", // production frontend
+      "http://localhost:5173", // local frontend
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
+
 
 // Parse JSON requests
 app.use(express.json());
